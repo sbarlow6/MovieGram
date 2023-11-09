@@ -1,0 +1,24 @@
+<div class="reviewcontainer">
+<div class="row reviewtitle">
+    <div class="col-md-6">
+      <h4>Review of {{ movie.Title }}</h4>
+    </div>
+    <div class='col-md-6'><h5> by  <a [routerLink]="['/review']" [queryParams]="{ user: uname }">{{uname}}</a></h5></div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <img [src]="movie.Poster">
+    </div>
+    <div class="col-md-8">
+      Rating: {{ review.revrating }}
+      <br> Review: {{ review.revdesc }}
+      <br><a href="#" *ngIf="format===1" [routerLink]="'/review'" [queryParams]="{ revid: review.revid }" id="openreviewlink{{review.revid}}" class="openreviewlink">Open this review</a>
+      <a href="#" *ngIf="format===2" (click)="onDeleteReview({ revid: review.revid }, $event)" id="deletelink{{review.revid}}" class="deletelink">DELETE</a>
+    </div>
+  </div>
+</div>
+  
+  
+  
+  
+  

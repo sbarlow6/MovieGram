@@ -1,0 +1,23 @@
+
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 formholder"><h1>Register</h1>
+<div id="errorholder"></div>
+<form role="form" (ngSubmit)="register()">
+    <label>Username:</label><br>
+    <input type="text" name="username" [(ngModel)]="username"/><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" [(ngModel)]="password"/><br>
+    <label>Reenter Password:</label><br>
+    <input type="password" name="password2" [(ngModel)]="password2"/><br>
+    <label>Full name:</label><br>
+    <input type="text" name="fullname" [(ngModel)]="fullname"/><br><br>
+    <!-- <label>About:</label><br>
+    <input type="text" name="aboutme" [(ngModel)]="aboutme"/><br> -->
+  <input type="submit" value="Submit">
+</form>
+</div>
+<div class="col-md-3"></div>
+</div>

@@ -1,0 +1,12 @@
+.underlinerow {
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    padding: 4px 0px 10px 0px;
+    margin: 4px 0px;
+}
+.row.reviewtitle {
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    margin-bottom: 5px;
+}

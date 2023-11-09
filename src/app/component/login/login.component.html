@@ -1,0 +1,18 @@
+
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 formholder"><h1>Login</h1>
+    <form role="form" (ngSubmit)="login()">
+      <label>Username:</label><br>
+      <input type="text" name="username" [(ngModel)]="username"/><br>
+
+      <label>Password:</label><br>
+      <input type="password" name="password" [(ngModel)]="password"/><br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <br><br>
+  Not a member yet? <a href="#" id="bringregisterform" routerLink="/registerform">Register</a><br>
+  </div>
+  <div class="col-md-3"></div>
+</div>

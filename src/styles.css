@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #fffef4;
+}
+.reviewcontainer img {
+    width: 100%;
+}
+
+.reviewcontainer {
+    background-color: #97b5c7;
+    color: #032336;
+    border-color: #032336;
+    border-style: solid;
+    border-width: 2px;
+    padding: 5px;
+    margin: 5px;
+    background-image: url(assets/film.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    overflow: hidden;
+}
+
+.row.reviewtitle {
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+    margin-bottom: 5px;
+}
+
+.formholder {
+    background-color: #97b5c7;
+    color: #032336;
+    border-color: #032336;
+    border-style: solid;
+    border-width: 2px;
+    padding: 5px;
+    margin: 5px;
+    background-image: url(assets/film.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    overflow: hidden;
+    font-size: 27px;
+}
+
+.formholder input {
+    width: 100%;
+    height: 48px;
+}
+
+.formholder h1 {
+    text-align: center;
+}
+
+.formholder img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
