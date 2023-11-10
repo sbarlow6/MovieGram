@@ -35,7 +35,7 @@ export class ReviewformComponent implements OnInit {
     this.reviewService.getmovie(this.moviename, this.movieyear, "movieformpart2");
   }
   savereview(){
-    this.reviewService.savereview(JSON.parse(localStorage.getItem("curruser")).profileid, document.getElementById("valuetoset").innerHTML, this.currrating/2, this.revdesc)
+    this.reviewService.savereview(JSON.parse(localStorage.getItem("curruser")).profileid, document.getElementById("valuetoset").innerHTML, this.currrating, this.revdesc)
   }
   
   

@@ -12,7 +12,20 @@
           <h5>Review by <a [routerLink]="['/review']" [queryParams]="{user: item?.uname}">{{ item?.uname }}</a></h5>
         </div>
         <div class="col-md-8">
-          Rating: {{ item?.revrating }}
+          <div id="stars">
+        
+            <div class="ratebox" id="{{item?.revid}}star1" [ngClass]="{'yellow': 1 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star2" [ngClass]="{'yellow': 2 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star3" [ngClass]="{'yellow': 3 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star4" [ngClass]="{'yellow': 4 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star5" [ngClass]="{'yellow': 5 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star6" [ngClass]="{'yellow': 6 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star7" [ngClass]="{'yellow': 7 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star8" [ngClass]="{'yellow': 8 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star9" [ngClass]="{'yellow': 9 <= item?.revrating}"></div>
+            <div class="ratebox" id="{{item?.revid}}star10" [ngClass]="{'yellow': 10 <= item?.revrating}"></div>
+            <img src = "../../../assets/stars.png" class="starOverlay">
+        </div>
           <br> Review: {{ item?.revdesc }}
           <br><a href="#" [routerLink]="'/review'" [queryParams]="{ revid: item?.revid }" id="openreviewlink{{ item?.revid }}" class="openreviewlink">Open this review</a>
         </div>

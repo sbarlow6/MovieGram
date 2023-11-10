@@ -35,6 +35,7 @@ export class ReviewComponent implements OnInit {
     componentRef.instance.reviewArray = reviewArray;
     this.container.insert(componentRef.hostView);
   }
+  
   constructor(private route: ActivatedRoute, private httpClient: HttpClient, private router: Router, private reviewService: ReviewService,  private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) { }
   reviews: Review[];
   ngOnInit() {
