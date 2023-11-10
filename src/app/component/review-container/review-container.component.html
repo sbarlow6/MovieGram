@@ -10,7 +10,20 @@
       <img [src]="movie.Poster">
     </div>
     <div class="col-md-8">
-      Rating: {{ review.revrating }}
+      <div id="stars">
+        
+        <div class="ratebox" id="{{review.revid}}star1" [ngClass]="{'yellow': 1 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star2" [ngClass]="{'yellow': 2 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star3" [ngClass]="{'yellow': 3 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star4" [ngClass]="{'yellow': 4 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star5" [ngClass]="{'yellow': 5 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star6" [ngClass]="{'yellow': 6 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star7" [ngClass]="{'yellow': 7 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star8" [ngClass]="{'yellow': 8 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star9" [ngClass]="{'yellow': 9 <= review.revrating}"></div>
+        <div class="ratebox" id="{{review.revid}}star10" [ngClass]="{'yellow': 10 <= review.revrating}"></div>
+        <img src = "../../../assets/stars.png" class="starOverlay">
+    </div>
       <br> Review: {{ review.revdesc }}
       <br><a href="#" *ngIf="format===1" [routerLink]="'/review'" [queryParams]="{ revid: review.revid }" id="openreviewlink{{review.revid}}" class="openreviewlink">Open this review</a>
       <a href="#" *ngIf="format===2" (click)="onDeleteReview({ revid: review.revid }, $event)" id="deletelink{{review.revid}}" class="deletelink">DELETE</a>

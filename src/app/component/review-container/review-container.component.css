@@ -1,6 +1,25 @@
-/* .openreviewlink {
-    display: none;
+#stars {
+    width: 100%;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 10px 0px;
+    position: relative;
 }
-.deletelink {
-    display: none;
-} */
+.ratebox {
+    display: inline-block;
+    width: 10%;
+    background-color: rgb(27, 21, 21);
+    transition: .2s;
+    padding: 10% 5%;
+}
+.yellow {
+    background-color: yellow;
+}
+img.starOverlay {
+    display: block;
+    z-index: 100;
+    width: 100%;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+}
