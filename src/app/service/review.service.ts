@@ -5,6 +5,8 @@ import { Review } from '../model/review';
 import { Observable } from 'rxjs';
 import { Movie } from '../model/movie';
 import { jsonpFactory } from '@angular/http/src/http_module';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,39 +21,39 @@ export class ReviewService {
 
 
     getreviews(): Observable<Review[]> {
-      let listoreviews = this.httpClient.get("http://localhost:8085/getreviews") as Observable<Review[]>;
+      let listoreviews = this.httpClient.get(environment.backendURL + "/getreviews") as Observable<Review[]>;
       return listoreviews;
 
     }
     
     getreviewsbyuser(username): Observable<Review[]> {
       let listoreviews;
-      listoreviews = this.httpClient.get("http://localhost:8085/reviewsbyuser?username=" + username) as Observable<Review[]>;
+      listoreviews = this.httpClient.get(environment.backendURL + "/reviewsbyuser?username=" + username) as Observable<Review[]>;
       return listoreviews;
           
     }
 
     getreviewsbymovie(imdbid):  Observable<Review[]> {
       let listoreviews;
-      listoreviews = this.httpClient.get("http://localhost:8085/reviewsbymovie?imdbid=" + imdbid) as Observable<Review[]>;
+      listoreviews = this.httpClient.get(environment.backendURL + "/reviewsbymovie?imdbid=" + imdbid) as Observable<Review[]>;
       return listoreviews;
     }
 
     getreviewsbyone(revid):  Observable<Review[]> {
       let listoreviews;
-      listoreviews = this.httpClient.get("http://localhost:8085/reviewsbyone?revid=" + revid) as Observable<Review[]>;
+      listoreviews = this.httpClient.get(environment.backendURL + "/reviewsbyone?revid=" + revid) as Observable<Review[]>;
       return listoreviews;
     }
     getnamebyuserid(userid) {
       let username;
-      username = this.httpClient.get("http://localhost:8085/namebyuser?userid=" + userid) as Observable<String>;
+      username = this.httpClient.get(environment.backendURL + "/namebyuser?userid=" + userid) as Observable<String>;
       return username;
     }
 
     getmovie(moviename, movieyear, reveal) {
 
       
-      this.httpClient.get("http://localhost:8085/movies?moviename="
+      this.httpClient.get(environment.backendURL + "/movies?moviename="
                                               + moviename
                                               + "&movieyear=" + movieyear).subscribe( (data:any) => {
           if(data){
@@ -86,7 +88,7 @@ export class ReviewService {
       let body = JSON.stringify(r);
 
 
-      this.httpClient.post("http://localhost:8085/savereviews", body, headers).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
+      this.httpClient.post(environment.backendURL + "/savereviews", body, headers).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
       this.router.navigateByUrl('/userhome');
     }
 
@@ -107,7 +109,7 @@ export class ReviewService {
         body: JSON.stringify(r)
       };
     
-      this.httpClient.delete("http://localhost:8085/deletereviews", httpOptions)
+      this.httpClient.delete(environment.backendURL + "/deletereviews", httpOptions)
         .subscribe(
           msg => {
             this.postResult = msg;
