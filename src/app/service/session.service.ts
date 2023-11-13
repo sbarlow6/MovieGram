@@ -4,6 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '../../../node_modules/@angular/router';
 import { User } from '../model/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class SessionService {
       
       
 
-      this.httpClient.post("http://localhost:8085/login", body,  headers )
+      this.httpClient.post(environment.backendURL + "/login", body,  headers )
       .subscribe( (data:any) => {
         console.log(data);
         if(data){
@@ -42,7 +43,7 @@ export class SessionService {
     }
 
     logout(){
-      this.httpClient.get("http://localhost:8085/logout",{withCredentials:true}).subscribe();
+      this.httpClient.get(environment.backendURL + "/logout",{withCredentials:true}).subscribe();
       localStorage.clear;
     }
 
@@ -54,12 +55,12 @@ export class SessionService {
       }; 
       let body = `username=${username}`;
       
-      this.httpClient.post("http://localhost:8085/checkuser", body, headers).subscribe( (data:any) => {
+      this.httpClient.post(environment.backendURL + "/checkuser", body, headers).subscribe( (data:any) => {
         let usertaken:boolean = data;
         if(usertaken == false) {
           if (password == password2) {
             let body2 = `username=${username}&password=${password}&fullname=${fullname}&aboutme=${aboutme}`;
-            this.httpClient.post("http://localhost:8085/register", body2, headers).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
+            this.httpClient.post(environment.backendURL + "/register", body2, headers).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
             this.router.navigateByUrl('/loginform');
           } else {
             document.getElementById("errorholder").innerHTML = "Your passwords do not match. Please double check them and try again.";

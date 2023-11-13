@@ -11,7 +11,7 @@
         <div class="col-md-4">
           <h5>Review by <a [routerLink]="['/review']" [queryParams]="{user: item?.uname}">{{ item?.uname }}</a></h5>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 preserveBr">
           <div id="stars">
         
             <div class="ratebox" id="{{item?.revid}}star1" [ngClass]="{'yellow': 1 <= item?.revrating}"></div>
