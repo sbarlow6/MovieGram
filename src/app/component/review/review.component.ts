@@ -8,6 +8,7 @@ import { ReviewContainerComponent } from '../review-container/review-container.c
 import { ReviewsByMovieComponent } from '../reviews-by-movie/reviews-by-movie.component';
 import { forkJoin } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-review',
@@ -54,7 +55,8 @@ export class ReviewComponent implements OnInit {
     this.reviewService.getreviewsbyuser(user).subscribe(reviews => {
         this.reviews = reviews;
         this.reviews.forEach(reviews => {
-          this.httpClient.get("http://www.omdbapi.com/?apikey=9bc46875&i=" + reviews.movieid).subscribe((res)=>{
+          console.log(environment.apiKey)
+          this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
         });
@@ -75,7 +77,8 @@ export class ReviewComponent implements OnInit {
         let obs = this.reviewService.getnamebyuserid(reviews.userid).pipe(
           switchMap(res2 => {
             uname = res2;
-            return this.httpClient.get("http://www.omdbapi.com/?apikey=9bc46875&i=" + imdbid);
+            console.log(environment.apiKey)
+            return this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + imdbid);
           }),
           tap((res) => {
             currmovie = JSON.parse(JSON.stringify(res));
@@ -102,7 +105,8 @@ export class ReviewComponent implements OnInit {
     this.reviewService.getreviewsbyone(revid).subscribe(reviews => {
       this.reviews = reviews;
       this.reviews.forEach(reviews => {
-        this.httpClient.get("http://www.omdbapi.com/?apikey=9bc46875&i=" + reviews.movieid).subscribe((res)=>{
+        console.log(environment.apiKey)
+        this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
           let currmovie: Movie = JSON.parse(JSON.stringify(res));
           
           this.reviewService.getnamebyuserid(reviews.userid).subscribe(res2 => {
