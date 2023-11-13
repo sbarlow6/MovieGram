@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Movie } from 'src/app/model/movie';
 import { Router } from '@angular/router';
 import { ReviewContainerComponent } from '../review-container/review-container.component';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-home',
@@ -41,7 +43,7 @@ export class HomeComponent implements OnInit {
       this.reviews.forEach(reviews => {
         
         
-        this.httpClient.get("http://www.omdbapi.com/?apikey=9bc46875&i=" + reviews.movieid).subscribe((res)=>{
+        this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
           if (revcount < 3) {
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
