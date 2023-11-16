@@ -2,11 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from 'src/app/model/movie';
 import { Review } from 'src/app/model/review';
 import { ReviewService } from 'src/app/service/review.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-review',
   templateUrl: './review-container.component.html',
-  styleUrls: ['./review-container.component.css']
+  styleUrls: ['./review-container.component.css'],
+  
 })
 export class ReviewContainerComponent {
   @Input() movie: Movie; 
@@ -14,11 +17,13 @@ export class ReviewContainerComponent {
   @Input() format: number; // Format 1: Has no user link, Format 2: has delete button and no open review, Format 3: has no user link and no open review
   uname: String;
 
-  constructor(private reviewService: ReviewService){}
+  constructor(private reviewService: ReviewService, private router: Router){}
   onDeleteReview(revid: number, event: Event) {
-    event.preventDefault();
     console.log("WE GOT THIS FAR")
     this.reviewService.deletereview(revid);
+  }
+  openReview(revid: string): void {
+    this.router.navigate(['/review'], { queryParams: { revid: revid } });
   }
   // staradjust(rating) {
   //   console.log(rating); 

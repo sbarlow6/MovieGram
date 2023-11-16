@@ -37,7 +37,7 @@ export class ReviewComponent implements OnInit {
     this.container.insert(componentRef.hostView);
   }
   
-  constructor(private route: ActivatedRoute, private httpClient: HttpClient, private router: Router, private reviewService: ReviewService,  private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) { }
+  constructor(private route: ActivatedRoute, private httpClient: HttpClient, private router: Router, private reviewService: ReviewService,  private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) {this.router.routeReuseStrategy.shouldReuseRoute = () => false; }
   reviews: Review[];
   ngOnInit() {
     
@@ -51,6 +51,7 @@ export class ReviewComponent implements OnInit {
     const user: string = this.route.snapshot.queryParamMap.get('user');
     const imdbid: string = this.route.snapshot.queryParamMap.get('imdbid');
     const revid: string = this.route.snapshot.queryParamMap.get('revid');
+    
     if(user) {
     this.reviewService.getreviewsbyuser(user).subscribe(reviews => {
         this.reviews = reviews;
