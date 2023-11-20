@@ -57,7 +57,7 @@ export class ReviewComponent implements OnInit {
         this.reviews = reviews;
         this.reviews.forEach(reviews => {
           console.log(environment.apiKey)
-          this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
+          this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
         });
@@ -79,7 +79,7 @@ export class ReviewComponent implements OnInit {
           switchMap(res2 => {
             uname = res2;
             console.log(environment.apiKey)
-            return this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + imdbid);
+            return this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + imdbid);
           }),
           tap((res) => {
             currmovie = JSON.parse(JSON.stringify(res));
@@ -107,18 +107,23 @@ export class ReviewComponent implements OnInit {
       this.reviews = reviews;
       this.reviews.forEach(reviews => {
         console.log(environment.apiKey)
-        this.httpClient.get("http://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
+        this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
           let currmovie: Movie = JSON.parse(JSON.stringify(res));
           
           this.reviewService.getnamebyuserid(reviews.userid).subscribe(res2 => {
             let uname = res2;
             let jsonguy = JSON.parse(localStorage.getItem('curruser'));
+            try {
             if (reviews.userid == jsonguy.profileid) {
             this.createComponent(currmovie, reviews, 2);
             } else {
               this.createComponent(currmovie, reviews, 3);
               }
+            } catch {
+              this.createComponent(currmovie, reviews, 3);
+            }
             });
+            
             
         });
 

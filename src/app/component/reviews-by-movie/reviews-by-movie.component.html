@@ -24,7 +24,7 @@
             <div class="ratebox" id="{{item?.revid}}star8" [ngClass]="{'yellow': 8 <= item?.revrating}"></div>
             <div class="ratebox" id="{{item?.revid}}star9" [ngClass]="{'yellow': 9 <= item?.revrating}"></div>
             <div class="ratebox" id="{{item?.revid}}star10" [ngClass]="{'yellow': 10 <= item?.revrating}"></div>
-            <img src = "../../../assets/stars.png" class="starOverlay">
+            <img src = "./assets/stars.png" class="starOverlay">
         </div>
           <br> Review: {{ item?.revdesc }}
           <br><a href="#" [routerLink]="'/review'" [queryParams]="{ revid: item?.revid }" id="openreviewlink{{ item?.revid }}" class="openreviewlink">Open this review</a>
