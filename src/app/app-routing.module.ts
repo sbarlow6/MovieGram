@@ -8,7 +8,6 @@ import { ReviewformComponent } from './component/reviewform/reviewform.component
 import { RegisterComponent } from './component/register/register.component';
 import { ReviewComponent } from './component/review/review.component';
 import { FindmovieformComponent } from './component/findmovieform/findmovieform.component';
-import { DeletebuttonComponent } from './component/deletebutton/deletebutton.component';
 
 
 
@@ -20,9 +19,7 @@ const appRoutes: Routes = [
   { path: 'loginform', component: LoginComponent},
   { path: 'registerform', component: RegisterComponent},
   { path: '', component: HomeComponent},
-  { path: 'review', component: ReviewComponent, children: [
-    {path: '', component: DeletebuttonComponent}
-  ]},
+  { path: 'review', component: ReviewComponent},
   { path: 'findmovieform', component: FindmovieformComponent}
   
 ];

@@ -14,7 +14,6 @@ import { RegisterComponent } from './component/register/register.component';
 import { ReviewComponent } from './component/review/review.component';
 import { FindmovieformComponent } from './component/findmovieform/findmovieform.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { DeletebuttonComponent } from './component/deletebutton/deletebutton.component';
 import { ReviewContainerComponent } from './component/review-container/review-container.component';
 import { ReviewsByMovieComponent } from './component/reviews-by-movie/reviews-by-movie.component';
 
@@ -29,7 +28,6 @@ import { ReviewsByMovieComponent } from './component/reviews-by-movie/reviews-by
     RegisterComponent,
     ReviewComponent,
     FindmovieformComponent,
-    DeletebuttonComponent,
     ReviewContainerComponent,
     ReviewsByMovieComponent
   ],

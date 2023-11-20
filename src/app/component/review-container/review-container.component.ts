@@ -18,7 +18,7 @@ export class ReviewContainerComponent {
   uname: String;
 
   constructor(private reviewService: ReviewService, private router: Router){}
-  onDeleteReview(revid: number, event: Event) {
+  onDeleteReview(revid) {
     console.log("WE GOT THIS FAR")
     this.reviewService.deletereview(revid);
   }
