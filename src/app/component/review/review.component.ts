@@ -56,8 +56,7 @@ export class ReviewComponent implements OnInit {
     this.reviewService.getreviewsbyuser(user).subscribe(reviews => {
         this.reviews = reviews;
         this.reviews.forEach(reviews => {
-          console.log(environment.apiKey)
-          this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
+          this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + reviews.movieid).subscribe((res)=>{
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
         });
@@ -78,8 +77,7 @@ export class ReviewComponent implements OnInit {
         let obs = this.reviewService.getnamebyuserid(reviews.userid).pipe(
           switchMap(res2 => {
             uname = res2;
-            console.log(environment.apiKey)
-            return this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + imdbid);
+            return this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + imdbid);
           }),
           tap((res) => {
             currmovie = JSON.parse(JSON.stringify(res));
@@ -106,8 +104,7 @@ export class ReviewComponent implements OnInit {
     this.reviewService.getreviewsbyone(revid).subscribe(reviews => {
       this.reviews = reviews;
       this.reviews.forEach(reviews => {
-        console.log(environment.apiKey)
-        this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
+        this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + reviews.movieid).subscribe((res)=>{
           let currmovie: Movie = JSON.parse(JSON.stringify(res));
           
           this.reviewService.getnamebyuserid(reviews.userid).subscribe(res2 => {

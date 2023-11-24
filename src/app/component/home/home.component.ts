@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
       this.reviews.forEach(reviews => {
         
         
-        this.httpClient.get("https://www.omdbapi.com/?apikey=" + environment.apiKey + "&i=" + reviews.movieid).subscribe((res)=>{
+        this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + reviews.movieid).subscribe((res)=>{
           if (revcount < 3) {
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
