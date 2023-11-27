@@ -24,7 +24,6 @@ export class ReviewformComponent implements OnInit {
       this.currrating = box;
       document.getElementById('star' + box).style.backgroundColor = "yellow";
       
-      console.log(this.currrating);
       this.starmouseout();
   }
   
@@ -40,15 +39,12 @@ export class ReviewformComponent implements OnInit {
   
   
   staradjust(rating) {
-    console.log(this.currrating); 
-    console.log("trigger staradjust");
+    
     for (let i = 1; i <= 10; i++) {
       if(i <= rating) {
         document.getElementById('star' + i).style.backgroundColor = "yellow";
-        console.log("changing star " + i + " to yellow");
       } else {
         document.getElementById('star' + i).style.backgroundColor = "black";
-        console.log("changing star " + i + " to black");
       }
         
       } 
@@ -56,14 +52,11 @@ export class ReviewformComponent implements OnInit {
   
 
   starmouseout() {
-    console.log("trigger mouseout")
     for (let i = 1; i <= 10; i++) {
       if(i <= this.currrating) {
         document.getElementById('star' + i).style.backgroundColor = "yellow";
-        console.log("changing star " + i + " to yellow");
       } else {
         document.getElementById('star' + i).style.backgroundColor = "black";
-        console.log("changing star " + i + " to black");
       }
         
       } 

@@ -15,7 +15,6 @@ export class ReviewsByMovieComponent implements OnInit {
 
   ngOnInit() {
     let movie = this.movie;
-    console.log(movie.Title)
     let review: Review[] = this.reviewArray;
   }
 

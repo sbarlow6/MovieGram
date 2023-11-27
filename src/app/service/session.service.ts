@@ -18,7 +18,6 @@ export class SessionService {
 
 
     login(username, password){
-      console.log("LOGIN GOT CALLED WITH PARAMETERS username: " + username + " password: " + password);
       const headers = {
         headers: new HttpHeaders({
           'Content-Type':  'application/x-www-form-urlencoded',
@@ -31,11 +30,9 @@ export class SessionService {
 
       this.httpClient.post(environment.backendURL + "/login", body,  headers )
       .subscribe( (data:any) => {
-        console.log(data);
         if(data){
           this.router.navigateByUrl('/userhome');
           let users:User = data;
-          console.log(JSON.stringify(users));
           localStorage.setItem('curruser', JSON.stringify(users));          
         }
       });

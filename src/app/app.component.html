@@ -9,6 +9,7 @@
         <div id="logdlink">
         <a href="#" id="logout" (click)="logout();" routerLink="/">Log out</a><br>
         <a href="#" routerLink="/userhome/reviewform">Write a Review</a><br>
+        <a href="#" routerLink="/review" [queryParams]="{ user: retrievedCurrUser }">My Profile</a><br>
         <a href="#" routerLink="/findmovieform">Find a movie</a>
         </div>
     </div>

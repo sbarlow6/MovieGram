@@ -93,7 +93,6 @@ export class ReviewService {
     }
 
     deletereview(revid) {
-      console.log("WE ARE GETTING THIS FAR TOO");
       let r = revid;
       //r.revid = revid;
     
@@ -102,7 +101,6 @@ export class ReviewService {
         'Content-Type': 'application/json'
       });
     
-      console.log("REQUEST BODY: " + JSON.stringify(r) + " REQUEST HEADERS: " + JSON.stringify(headers));
     
       const httpOptions = {
         headers: headers,
