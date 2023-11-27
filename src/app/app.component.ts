@@ -7,8 +7,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Project2Front';
+  retrievedCurrUser: string;
+  
   logout() {
     localStorage.clear();
+  }
+  constructor(){
+    let userObject = JSON.parse(localStorage.getItem('curruser'));
+    try {
+      this.retrievedCurrUser = userObject.username;
+    } catch {
+      console.log("Got an error with the username attempt")
+    }
+    
   }
 }
 

@@ -19,7 +19,6 @@ export class ReviewComponent implements OnInit {
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
   createComponent(currmovie, reviews, format) {
-    console.log("WE THIS GOT FAR")
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ReviewContainerComponent);
     const componentRef = componentFactory.create(this.injector);
     componentRef.instance.movie = currmovie;
@@ -29,7 +28,6 @@ export class ReviewComponent implements OnInit {
     this.container.insert(componentRef.hostView);
   }
   createComponent2(currmovie, reviewArray) {
-    console.log("WE THIS GOT FAR")
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ReviewsByMovieComponent);
     const componentRef = componentFactory.create(this.injector);
     componentRef.instance.movie = currmovie;

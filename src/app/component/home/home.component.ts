@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   container!: ViewContainerRef;
   constructor(private reviewService: ReviewService, private router: Router, private httpClient: HttpClient,private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) { }
   createComponent(currmovie, reviews, format) {
-    console.log("WE THIS GOT FAR")
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ReviewContainerComponent);
     const componentRef = componentFactory.create(this.injector);
     componentRef.instance.movie = currmovie;
@@ -27,7 +26,20 @@ export class HomeComponent implements OnInit {
     componentRef.instance.format = format;
     this.container.insert(componentRef.hostView);
   }
+  getRandomInt(max) {
+    const randomNumbers: number[] = [];
+    while (randomNumbers.length < 3) {
+
+      const randomNumber = Math.floor(Math.random() * max);
+        if (!randomNumbers.includes(randomNumber)) {
+        randomNumbers.push(randomNumber);
+      }
+    }
+      return randomNumbers;
+  }
   reviews: Review[];
+  featuredreviews: Review[] = [];
+  
   ngOnInit() {
       if(localStorage.getItem("curruser")) {
         document.getElementById("loglink").style.display = "none";
@@ -40,10 +52,13 @@ export class HomeComponent implements OnInit {
       let revcount = 0;
     this.reviewService.getreviews().subscribe(reviews => {
       this.reviews = reviews;
-      this.reviews.forEach(reviews => {
-        
-        
+      let featuredNumbers: number[] = this.getRandomInt(reviews.length);
+      this.featuredreviews.push(this.reviews[featuredNumbers[0]]);
+      this.featuredreviews.push(this.reviews[featuredNumbers[1]]);
+      this.featuredreviews.push(this.reviews[featuredNumbers[2]]);
+      this.featuredreviews.forEach(reviews => {
         this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + reviews.movieid).subscribe((res)=>{
+          
           if (revcount < 3) {
             let currmovie: Movie = JSON.parse(JSON.stringify(res));
             this.createComponent(currmovie, reviews, 1);
