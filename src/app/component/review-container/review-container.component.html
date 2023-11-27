@@ -24,7 +24,7 @@
         <div class="ratebox" id="{{review.revid}}star10" [ngClass]="{'yellow': 10 <= review.revrating}"></div>
         <img src = "./assets/stars.png" class="starOverlay">
     </div>
-      <br> Review: {{ review.revdesc }}
+      <br>{{ review.revdesc }}
       <br><a href="/review" *ngIf="format===1" [routerLink]="'/review'" [queryParams]="{ revid: review.revid }" id="openreviewlink{{review.revid}}" class="openreviewlink">Open this review</a>
       <a href="#" *ngIf="format===2" (click)="onDeleteReview({ revid: review.revid })" id="deletelink{{review.revid}}" class="deletelink">DELETE</a>
     </div>
