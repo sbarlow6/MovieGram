@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ReviewService } from 'src/app/service/review.service';
 
 
@@ -10,15 +11,16 @@ import { ReviewService } from 'src/app/service/review.service';
 })
 export class ReviewformComponent implements OnInit {
 
-  @Input() moviename: string;
-  @Input() movieyear: string;
+  // @Input() moviename: string;
+  // @Input() movieyear: string;
+  @Input() imdbIDent: string;
   @Input() revrating: string;
   @Input() revdesc: string;
 
   private currrating: any;
 
 
-  constructor(private reviewService: ReviewService) { }
+  constructor(private reviewService: ReviewService, private route: ActivatedRoute) { }
 
   handleStarsClick(box) {
       this.currrating = box;
@@ -29,12 +31,14 @@ export class ReviewformComponent implements OnInit {
   
   ngOnInit() {
     this.currrating = 0;
+    const imdbIDent: string = this.route.snapshot.queryParamMap.get('imdbIDent');
+    this.reviewService.getPoster(imdbIDent);
   }
-  getmovie(){
-    this.reviewService.getmovie(this.moviename, this.movieyear, "movieformpart2");
-  }
+  // getmovie(){
+  //   this.reviewService.getmovie(this.moviename, this.movieyear, "movieformpart2");
+  // }
   savereview(){
-    this.reviewService.savereview(JSON.parse(localStorage.getItem("curruser")).profileid, document.getElementById("valuetoset").innerHTML, this.currrating, this.revdesc)
+    this.reviewService.savereview(this.route.snapshot.queryParamMap.get('imdbIDent'), this.currrating, this.revdesc)
   }
   
   

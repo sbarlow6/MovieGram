@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from '../../service/session.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,7 @@ export class LoginComponent implements OnInit {
   @Input() username: string;
   @Input() password: string;
 
-  constructor(private sessionService: SessionService) {  }
+  constructor(private sessionService: SessionService,private httpClient: HttpClient, private router: Router) {  }
   
   
   ngOnInit() {
@@ -32,4 +35,18 @@ export class LoginComponent implements OnInit {
     this.sessionService.logout();
   }
 
+  // writeReview() {
+  //   console.log("Write Review link activated");
+  //   if (this.sessionService.checksession()) {
+  //     console.log("User found redirecting to review form.");
+  //     this.router.navigateByUrl('/userhome/reviewform');
+  //   } else {
+  //     console.log("User not found redirecting to login form.");
+  //     this.router.navigateByUrl('/loginform');
+  //   }
+       
+      
+  // }
 }
+
+

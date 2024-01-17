@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Movie } from 'src/app/model/movie';
 import { ReviewContainerComponent } from '../review-container/review-container.component';
 import { ReviewsByMovieComponent } from '../reviews-by-movie/reviews-by-movie.component';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
@@ -63,45 +63,60 @@ export class ReviewComponent implements OnInit {
         });
       } else if (imdbid){
 
-    this.reviewService.getreviewsbymovie(imdbid).subscribe(reviews => {
-      this.reviews = reviews;
-      let currmovie: Movie;
-      let reviewArray: Review[] = [];
-      
-      let observables = [];
-    
-      this.reviews.forEach(reviews => {
-        let uname;
-        let obs = this.reviewService.getnamebyuserid(reviews.userid).pipe(
-          switchMap(res2 => {
-            uname = res2;
-            return this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + imdbid);
-          }),
-          tap((res) => {
-            currmovie = JSON.parse(JSON.stringify(res));
-            let newReview: Review = new Review;
-            newReview.revrating = reviews.revrating;
-            newReview.revdesc = reviews.revdesc;
-            newReview.uname = uname.uname;
-            newReview.revid = reviews.revid;
-            reviewArray.push(newReview);
-          })
-        );
-        observables.push(obs);
-      });
-    
-      forkJoin(observables).subscribe(() => {
-        console.log(JSON.stringify(reviewArray));
-        this.createComponent2(currmovie, reviewArray);
-      });
-    });
+        this.reviewService.getreviewsbymovie(imdbid).subscribe(reviews => {
+          this.reviews = reviews;
+          let currmovie: Movie;
+        
+          let observables = [];
+          let reviewArray: Review[] = [];
+        
+          // Request for movie details
+          observables.push(
+            this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + imdbid).pipe(
+              tap((res) => {
+                currmovie = JSON.parse(JSON.stringify(res));
+              })
+            )
+          );
+        
+          // If there are no reviews, create an observable that emits once.
+          if (this.reviews.length === 0) {
+            observables.push(of(null));
+          }
+        
+          // Process reviews
+          this.reviews.forEach(reviews => {
+            let uname;
+            let obs = this.reviewService.getnamebyuserid(reviews.userid).pipe(
+              switchMap(res2 => {
+                uname = res2;
+                // Additional requests for individual reviews if needed
+                // ...
+        
+                return of(null); // Adjust this line if additional requests are needed
+              }),
+              tap(() => {
+                let newReview: Review = new Review();
+                newReview.revrating = reviews.revrating;
+                newReview.revdesc = reviews.revdesc;
+                newReview.uname = uname.uname;
+                newReview.revid = reviews.revid;
+                reviewArray.push(newReview);
+              })
+            );
+            observables.push(obs);
+          });
+        
+          forkJoin(observables).subscribe(() => {
+            console.log(JSON.stringify(reviewArray));
+            this.createComponent2(currmovie, reviewArray);
+          });
+        });
   
     } else if (revid){
 
 
     this.reviewService.getreviewsbyone(revid).subscribe(reviews => {
-      this.reviews = reviews;
-      this.reviews.forEach(reviews => {
         this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + reviews.movieid).subscribe((res)=>{
           let currmovie: Movie = JSON.parse(JSON.stringify(res));
           
@@ -123,7 +138,6 @@ export class ReviewComponent implements OnInit {
         });
 
         });
-    });
 
     }
   }

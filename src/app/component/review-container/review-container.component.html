@@ -1,7 +1,7 @@
 <div class="reviewcontainer">
 <div class="row reviewtitle">
     <div class="col-md-6">
-      <h4>Review of {{ movie.Title }}</h4>
+      <h4>Review of <a href="/review" [routerLink]="['/review']" [queryParams]="{ imdbid: movie.imdbID }">{{ movie.Title }}</a></h4>
     </div>
     <div class='col-md-6'><h5> by  <a href="/review" [routerLink]="['/review']" [queryParams]="{ user: uname }">{{uname}}</a></h5></div>
   </div>
@@ -26,7 +26,7 @@
     </div>
       <br>{{ review.revdesc }}
       <br><a href="/review" *ngIf="format===1" [routerLink]="'/review'" [queryParams]="{ revid: review.revid }" id="openreviewlink{{review.revid}}" class="openreviewlink">Open this review</a>
-      <a href="#" *ngIf="format===2" (click)="onDeleteReview({ revid: review.revid })" id="deletelink{{review.revid}}" class="deletelink">DELETE</a>
+      <a href="#" *ngIf="format===2" (click)="onDeleteReview({ revid: review.revid }); $event.preventDefault();" id="deletelink{{review.revid}}" class="deletelink">DELETE</a>
     </div>
   </div>
 </div>

@@ -1,11 +1,19 @@
 <div class="reviewcontainer">
     <div class="row reviewtitle">
-        <div class="col-2"><img [src]="movie?.Poster"></div>
-      <div class="col-10">
+        <div class="col-3"><img [src]="movie?.Poster"></div>
+      <div class="col-9">
         <h4>Reviews of {{ movie?.Title }}</h4>
+        <div class="row">
+          <div class="col-md-6"><h5>Rotten Tomatoes:<br>{{movie.rtscore}}</h5></div><div class="col-md-6"><h5>Release Date:<br>{{movie.Released}}</h5></div>
+        </div>
+        {{movie.Plot}}<br>
+        
+        <a href="#" (click)="writeReview(movie?.imdbID); $event.preventDefault();">Write a Review</a>
+        <div *ngIf="reviewArray[0] == null">There are currently no reviews for this movie. Click above to be the first!</div>
       </div>
       
     </div>
+    
     <div *ngFor="let item of reviewArray">
       <div class="row underlinerow">
         <div class="col-md-4">
