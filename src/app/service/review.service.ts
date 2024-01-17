@@ -39,10 +39,10 @@ export class ReviewService {
       return listoreviews;
     }
 
-    getreviewsbyone(revid):  Observable<Review[]> {
-      let listoreviews;
-      listoreviews = this.httpClient.get(environment.backendURL + "/reviewsbyone?revid=" + revid) as Observable<Review[]>;
-      return listoreviews;
+    getreviewsbyone(revid):  Observable<Review> {
+      let singlereview;
+      singlereview = this.httpClient.get(environment.backendURL + "/reviewsbyone?revid=" + revid) as Observable<Review>;
+      return singlereview;
     }
     getnamebyuserid(userid) {
       let username;
@@ -72,42 +72,52 @@ export class ReviewService {
         });
       
     }
+    getPoster(imdbIDent){
+      this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + imdbIDent).subscribe((res:Movie)=>{
+        document.getElementById("movieformpart2").style.display = "block";
+        let retmovie:Movie = res;
+        let currrevmoviehold = document.getElementById("currrevmoviehold");
+        currrevmoviehold.innerHTML = "<div class='innerholder'> Title: " + retmovie.Title 
+              + "<br><img src='" + retmovie.Poster + "'>";
+
+      });}
     
-    savereview(userid, movieid, revrating, revdesc) {
+    savereview(movieid, revrating, revdesc) {
       let r = new Review;
-      r.userid = userid;
       r.movieid = movieid;
       r.revrating = revrating;
       r.revdesc = revdesc;
       const headers = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-        }), withCredentials:false
+        }), withCredentials:true
       };
       
       let body = JSON.stringify(r);
 
 
-      this.httpClient.post(environment.backendURL + "/savereviews", body, headers).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
+      this.httpClient.post(environment.backendURL + "/savereviews", body, { ...headers, responseType: 'text'}).subscribe(msg=>{this.postResult = msg; console.log(msg);}, err=>{ console.log(err); throw "";});
       this.router.navigateByUrl('/userhome');
     }
 
     deletereview(revid) {
       let r = revid;
+      console.log("Current review ID for deletion:" + JSON.stringify(r) + " Or also: " + r.revid);
       //r.revid = revid;
     
       // Create HttpHeaders correctly
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-      });
+        'Content-Type':  'application/json',
+      }); // set withCredentials in the headers
     
     
       const httpOptions = {
         headers: headers,
-        body: JSON.stringify(r)
+        withCredentials: true
+        // body: JSON.stringify(r)
       };
     
-      this.httpClient.delete(environment.backendURL + "/deletereviews", httpOptions)
+      this.httpClient.delete(environment.backendURL + "/deletereviews?revid=" + r.revid,{ ...httpOptions, responseType: 'text'})
         .subscribe(
           msg => {
             this.postResult = msg;
@@ -118,6 +128,6 @@ export class ReviewService {
             throw "";
           }
         );
-        this.router.navigateByUrl('/userhome');
+         this.router.navigateByUrl('/userhome');
     }
 }

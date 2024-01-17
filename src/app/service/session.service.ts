@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '../../../node_modules/@angular/router';
 import { User } from '../model/user';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,28 +21,52 @@ export class SessionService {
     login(username, password){
       const headers = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/x-www-form-urlencoded',
-        }), withCredentials:false
+          'Content-Type':  'application/json',
+        }), withCredentials:true
       };   
-  
-      let body = `username=${username}&password=${password}`;
+      console.log("THIS IS GETTING CALLED RIGHT?")
+      let body = `{"username":"${username}", "password":"${password}"}`;
       
       
 
-      this.httpClient.post(environment.backendURL + "/login", body,  headers )
+      this.httpClient.post(environment.backendURL + "/login", body, headers)
       .subscribe( (data:any) => {
         if(data){
-          this.router.navigateByUrl('/userhome');
+          // this.router.navigateByUrl('/userhome');
+          const previousRoute = localStorage.getItem('previousRoute');
+          if (previousRoute) {
+            this.router.navigateByUrl(previousRoute);
+          } else {
+            this.router.navigate(['/userhome']);
+          }
           let users:User = data;
           localStorage.setItem('curruser', JSON.stringify(users));          
+        } else {
+          window.alert("That password was incorrect, please try again.")
         }
       });
   
     }
 
     logout(){
-      this.httpClient.get(environment.backendURL + "/logout",{withCredentials:true}).subscribe();
+      this.httpClient.get(environment.backendURL + "/loggingout",{withCredentials:true}).subscribe();
       localStorage.clear;
+    }
+
+    checksession(): Observable<boolean> {
+      return this.httpClient.get(environment.backendURL + "/session", { withCredentials: true }).pipe(
+        map((data: any) => {
+          console.log(data);
+    
+          if (data) {
+            console.log("USER FOUND");
+            return true;
+          } else {
+            console.log("USER NOT FOUND");
+            return false;
+          }
+        })
+      );
     }
 
     register(username, password, password2, fullname, aboutme){
