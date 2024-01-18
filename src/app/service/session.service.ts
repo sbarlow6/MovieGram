@@ -24,7 +24,6 @@ export class SessionService {
           'Content-Type':  'application/json',
         }), withCredentials:true
       };   
-      console.log("THIS IS GETTING CALLED RIGHT?")
       let body = `{"username":"${username}", "password":"${password}"}`;
       
       
@@ -32,7 +31,6 @@ export class SessionService {
       this.httpClient.post(environment.backendURL + "/login", body, headers)
       .subscribe( (data:any) => {
         if(data){
-          // this.router.navigateByUrl('/userhome');
           const previousRoute = localStorage.getItem('previousRoute');
           if (previousRoute) {
             this.router.navigateByUrl(previousRoute);
@@ -55,14 +53,10 @@ export class SessionService {
 
     checksession(): Observable<boolean> {
       return this.httpClient.get(environment.backendURL + "/session", { withCredentials: true }).pipe(
-        map((data: any) => {
-          console.log(data);
-    
+        map((data: any) => {    
           if (data) {
-            console.log("USER FOUND");
             return true;
           } else {
-            console.log("USER NOT FOUND");
             return false;
           }
         })

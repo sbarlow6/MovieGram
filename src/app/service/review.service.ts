@@ -102,19 +102,16 @@ export class ReviewService {
 
     deletereview(revid) {
       let r = revid;
-      console.log("Current review ID for deletion:" + JSON.stringify(r) + " Or also: " + r.revid);
-      //r.revid = revid;
     
       // Create HttpHeaders correctly
       const headers = new HttpHeaders({
         'Content-Type':  'application/json',
-      }); // set withCredentials in the headers
+      });
     
     
       const httpOptions = {
         headers: headers,
         withCredentials: true
-        // body: JSON.stringify(r)
       };
     
       this.httpClient.delete(environment.backendURL + "/deletereviews?revid=" + r.revid,{ ...httpOptions, responseType: 'text'})

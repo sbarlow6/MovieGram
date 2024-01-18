@@ -11,8 +11,7 @@ import { ReviewService } from 'src/app/service/review.service';
 })
 export class ReviewformComponent implements OnInit {
 
-  // @Input() moviename: string;
-  // @Input() movieyear: string;
+
   @Input() imdbIDent: string;
   @Input() revrating: string;
   @Input() revdesc: string;
@@ -34,9 +33,7 @@ export class ReviewformComponent implements OnInit {
     const imdbIDent: string = this.route.snapshot.queryParamMap.get('imdbIDent');
     this.reviewService.getPoster(imdbIDent);
   }
-  // getmovie(){
-  //   this.reviewService.getmovie(this.moviename, this.movieyear, "movieformpart2");
-  // }
+
   savereview(){
     this.reviewService.savereview(this.route.snapshot.queryParamMap.get('imdbIDent'), this.currrating, this.revdesc)
   }

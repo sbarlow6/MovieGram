@@ -35,18 +35,6 @@ export class LoginComponent implements OnInit {
     this.sessionService.logout();
   }
 
-  // writeReview() {
-  //   console.log("Write Review link activated");
-  //   if (this.sessionService.checksession()) {
-  //     console.log("User found redirecting to review form.");
-  //     this.router.navigateByUrl('/userhome/reviewform');
-  //   } else {
-  //     console.log("User not found redirecting to login form.");
-  //     this.router.navigateByUrl('/loginform');
-  //   }
-       
-      
-  // }
 }
 
 

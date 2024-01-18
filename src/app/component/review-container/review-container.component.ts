@@ -22,12 +22,10 @@ export class ReviewContainerComponent {
   onDeleteReview(revid) {
     this.sessionService.checksession().subscribe((userFound: boolean) => {
       if (userFound) {
-        console.log("User found, deleting review and redirecting to home.");
         this.reviewService.deletereview(revid);
         this.router.navigateByUrl('/');
       } else {
         localStorage.setItem('previousRoute', this.router.url);
-        console.log("User not found redirecting to login form.");
         this.router.navigateByUrl('/loginform');
       }
     });
