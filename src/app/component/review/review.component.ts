@@ -70,7 +70,7 @@ export class ReviewComponent implements OnInit {
           let observables = [];
           let reviewArray: Review[] = [];
         
-          // Request for movie details
+          // Send Request for movie details
           observables.push(
             this.httpClient.get(environment.backendURL + "/movieposter?imdbID=" + imdbid).pipe(
               tap((res) => {
@@ -79,21 +79,20 @@ export class ReviewComponent implements OnInit {
             )
           );
         
-          // If there are no reviews, create an observable that emits once.
+          // If the Review Array is empty, create an observable that emits once.
           if (this.reviews.length === 0) {
             observables.push(of(null));
           }
         
-          // Process reviews
+          // Show the reviews if there are any
           this.reviews.forEach(reviews => {
             let uname;
             let obs = this.reviewService.getnamebyuserid(reviews.userid).pipe(
               switchMap(res2 => {
                 uname = res2;
-                // Additional requests for individual reviews if needed
-                // ...
+
         
-                return of(null); // Adjust this line if additional requests are needed
+                return of(null); 
               }),
               tap(() => {
                 let newReview: Review = new Review();
@@ -108,7 +107,6 @@ export class ReviewComponent implements OnInit {
           });
         
           forkJoin(observables).subscribe(() => {
-            console.log(JSON.stringify(reviewArray));
             this.createComponent2(currmovie, reviewArray);
           });
         });

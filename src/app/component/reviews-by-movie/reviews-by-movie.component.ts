@@ -23,11 +23,9 @@ export class ReviewsByMovieComponent implements OnInit {
   writeReview(imdbIDent) {
   this.sessionService.checksession().subscribe((userFound: boolean) => {
     if (userFound) {
-      console.log("User found redirecting to review form.");
       this.router.navigate(['/userhome/reviewform'], { queryParams: { imdbIDent: imdbIDent } });
     } else {
       localStorage.setItem('previousRoute', this.router.url);
-      console.log("User not found redirecting to login form.");
       this.router.navigateByUrl('/loginform');
     }
   });

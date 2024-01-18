@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       if(localStorage.getItem("curruser")) {
         document.getElementById("loglink").style.display = "none";
         document.getElementById("logdlink").style.display = "block";
-        // this.router.navigateByUrl('/userhome');
+        this.router.navigateByUrl('/userhome');
       } else {
         document.getElementById("loglink").style.display = "block";
         document.getElementById("logdlink").style.display = "none";
