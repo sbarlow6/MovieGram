@@ -5,6 +5,7 @@
     "node": "12.x"
   },
   "scripts": {
+    "postinstall": "npm install -g @angular/cli",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
