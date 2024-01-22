@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Review } from '../model/review';
 import { Observable } from 'rxjs';
 import { Movie } from '../model/movie';
-import { jsonpFactory } from '@angular/http/src/http_module';
 import { environment } from '../../environments/environment';
 
 
