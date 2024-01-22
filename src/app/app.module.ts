@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
 import { UserhomeComponent } from './component/userhome/userhome.component';
 import { HomeComponent } from './component/home/home.component';
 import { ReviewformComponent } from './component/reviewform/reviewform.component';
@@ -36,7 +34,6 @@ import { ReviewsByMovieComponent } from './component/reviews-by-movie/reviews-by
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    HttpModule,
     NgbModule
   ],
   entryComponents: [ReviewContainerComponent, ReviewsByMovieComponent],
